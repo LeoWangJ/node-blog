@@ -1,0 +1,26 @@
+{
+  "name": "node-blog",
+  "version": "1.0.0",
+  "description": "node-blog",
+  "main": "./server/bin/www.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "serve": "cross-env NODE_ENV=dev nodemon ./server/bin/www.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LeoWangJ/node-blog.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LeoWangJ/node-blog/issues"
+  },
+  "homepage": "https://github.com/LeoWangJ/node-blog#readme",
+  "devDependencies": {
+    "cross-env": "^6.0.3",
+    "nodemon": "^1.19.3"
+  }
+}
