@@ -1,4 +1,4 @@
-var { getList, getDetail, addBlog, updateBlog } = require('../controller/blog')
+var { getList, getDetail, addBlog, updateBlog, deleteBlog } = require('../controller/blog')
 var { SuccessModel, ErrorModel } = require('../model/resModel')
 var handleBlogRouter = (req, res) => {
     var method = req.method
@@ -37,8 +37,13 @@ var handleBlogRouter = (req, res) => {
 
     // 刪除博客
     if (method === 'POST' && req.path === '/api/blog/delete') {
-        return {
-            message: 'delete blog'
+        var { id } = req.query
+        var result = deleteBlog(id)
+
+        if (result) {
+            return new SuccessModel()
+        } else {
+            return new ErrorModel('刪除博客失敗')
         }
     }
 }

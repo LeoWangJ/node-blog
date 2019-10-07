@@ -36,9 +36,14 @@ var addBlog = (blogData = {}) => {
 var updateBlog = (blogData = {}) => {
     return true
 }
+
+var deleteBlog = (blogData = {}) => {
+    return true
+}
 module.exports = {
     getList,
     getDetail,
     addBlog,
-    updateBlog
+    updateBlog,
+    deleteBlog
 }
