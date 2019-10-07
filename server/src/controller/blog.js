@@ -17,6 +17,28 @@ var getList = (auther, keyword) => {
     ]
 }
 
+var getDetail = (id) => {
+    return {
+        id: 1,
+        title: 'test',
+        content: 'hello',
+        createtime: 1570382110529,
+        author: 'leo'
+    }
+}
+
+var addBlog = (blogData = {}) => {
+    return {
+        id: 3
+    }
+}
+
+var updateBlog = (blogData = {}) => {
+    return true
+}
 module.exports = {
-    getList
+    getList,
+    getDetail,
+    addBlog,
+    updateBlog
 }

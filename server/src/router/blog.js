@@ -1,4 +1,4 @@
-var { getList } = require('../controller/blog')
+var { getList, getDetail, addBlog, updateBlog } = require('../controller/blog')
 var { SuccessModel, ErrorModel } = require('../model/resModel')
 var handleBlogRouter = (req, res) => {
     var method = req.method
@@ -12,19 +12,26 @@ var handleBlogRouter = (req, res) => {
     // 獲取博客詳情
     if (method === 'GET' && req.path === '/api/blog/detail') {
         var { id } = req.query
+        var detailData = getDetail(id)
+        return new SuccessModel(detailData)
     }
 
     // 新增博客
     if (method === 'POST' && req.path === '/api/blog/new') {
-        return {
-            message: 'add blog'
-        }
+        var bodyData = req.body
+        var blogData = addBlog(bodyData)
+        return new SuccessModel(blogData)
     }
 
     // 更新博客
     if (method === 'POST' && req.path === '/api/blog/update') {
-        return {
-            message: 'update blog'
+        var { id } = req.query
+        var result = updateBlog(id, req.body)
+
+        if (result) {
+            return new SuccessModel()
+        } else {
+            return new ErrorModel('更新博客失敗')
         }
     }
 
