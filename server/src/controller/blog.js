@@ -1,3 +1,4 @@
+var { exec } = require('../db/mysql')
 var getList = (auther, keyword) => {
     return [
         {
