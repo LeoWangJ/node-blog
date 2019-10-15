@@ -1,45 +1,57 @@
 var { exec } = require('../db/mysql')
-var getList = (auther, keyword) => {
-    return [
-        {
-            id: 1,
-            title: 'test',
-            content: 'hello',
-            createtime: 1570382110529,
-            author: 'leo'
-        },
-        {
-            id: 2,
-            title: '明天上班',
-            content: '再撐三天',
-            createtime: 1570382110529,
-            author: 'leo'
-        }
-    ]
+var getList = (author, keyword) => {
+    let sql = `select * from blogs where 1=1 `
+
+    if (author) {
+        sql += `and author='${author}' `
+    }
+    if (keyword) {
+        sql += `and title like '%${keyword}%' `
+    }
+
+    sql += 'order by createtime desc;'
+    return exec(sql)
 }
 
 var getDetail = (id) => {
-    return {
-        id: 1,
-        title: 'test',
-        content: 'hello',
-        createtime: 1570382110529,
-        author: 'leo'
-    }
+    let sql = `select * from blogs where id='${id}';`
+    return exec(sql).then(res => {
+        return res[0]
+    })
 }
 
 var addBlog = (blogData = {}) => {
-    return {
-        id: 3
-    }
+    let { title, content, author } = blogData
+    let createtime = Date.now()
+    let sql = `insert into blogs (title,content,createtime,author) values ('${title}','${content}','${createtime}','${author}');`
+    return exec(sql).then(data => {
+        return {
+            id: data.insertId
+        }
+    })
 }
 
-var updateBlog = (blogData = {}) => {
-    return true
+var updateBlog = (id, blogData = {}) => {
+    let { title, content } = blogData
+    let sql = `
+       update blogs set title='${title}', content='${content}' where id=${id};
+    `
+    return exec(sql).then(result => {
+        if (result.affectedRows > 0) {
+            return true
+        }
+        return false
+    })
 }
 
-var deleteBlog = (blogData = {}) => {
-    return true
+var deleteBlog = (id, author) => {
+    let sql = `delete from blogs where id=${id} and author='${author}';`
+    return exec(sql).then(result => {
+        if (result.affectedRows > 0) {
+            return true
+        }
+        return false
+    })
 }
 module.exports = {
     getList,
