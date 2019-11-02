@@ -1,7 +1,7 @@
 const env = process.env.NODE_ENV
 
 let MYSQL_CONFIG
-
+let REDIS_CONFIG
 if (env === 'dev') {
     MYSQL_CONFIG = {
         host: 'localhost',
@@ -9,6 +9,10 @@ if (env === 'dev') {
         user: 'root',
         password: 'aa1111',
         database: 'myblog'
+    }
+    REDIS_CONFIG = {
+        port: 6379,
+        host: '127.0.0.1'
     }
 }
 if (env === 'production') {
@@ -19,8 +23,14 @@ if (env === 'production') {
         password: 'aa1111',
         database: 'myblog'
     }
+
+    REDIS_CONFIG = {
+        port: 6379,
+        host: '127.0.0.1'
+    }
 }
 
 module.exports = {
-    MYSQL_CONFIG
+    MYSQL_CONFIG,
+    REDIS_CONFIG
 }

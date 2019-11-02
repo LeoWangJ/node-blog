@@ -1,0 +1,2 @@
+GET -- /api/blog/list -- PostmanRuntime/7.15.2 -- 1572699174017
+GET -- /api/blog/detail -- PostmanRuntime/7.15.2 -- 1572699195996
