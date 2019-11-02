@@ -1,4 +1,5 @@
 var { exec } = require('../db/mysql')
+let xss = require('xss')
 var getList = (author, keyword) => {
     let sql = `select * from blogs where 1=1 `
 
@@ -22,6 +23,8 @@ var getDetail = (id) => {
 
 var addBlog = (blogData = {}) => {
     let { title, content, author } = blogData
+    title = xss(title)
+    content = xss(content)
     let createtime = Date.now()
     let sql = `insert into blogs (title,content,createtime,author) values ('${title}','${content}','${createtime}','${author}');`
     return exec(sql).then(data => {
